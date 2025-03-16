@@ -19382,6 +19382,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2977479361586854372, guid: 765d39ac1dc2fe94592d1133e1c6cd0e,
+        type: 3}
+      propertyPath: DopplerLevel
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2977479361586854372, guid: 765d39ac1dc2fe94592d1133e1c6cd0e,
+        type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2977479361586854372, guid: 765d39ac1dc2fe94592d1133e1c6cd0e,
+        type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3044475521599900444, guid: 765d39ac1dc2fe94592d1133e1c6cd0e,
         type: 3}
       propertyPath: m_Name
@@ -19395,7 +19410,7 @@ PrefabInstance:
     - target: {fileID: 8016580380551863937, guid: 765d39ac1dc2fe94592d1133e1c6cd0e,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.5
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 8016580380551863937, guid: 765d39ac1dc2fe94592d1133e1c6cd0e,
         type: 3}
