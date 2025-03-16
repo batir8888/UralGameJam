@@ -1,10 +1,15 @@
 using Extensions;
 using UnityEngine;
+using UnityEngine.Events;
+using Random = UnityEngine.Random;
 
 namespace Game.Batyr.Dynamite
 {
+    [RequireComponent(typeof(DynamiteSfx))]
     public class Dynamite : MonoBehaviour
     {
+        public UnityEvent onExploded;
+
         private readonly Collider[] _colliders = new Collider[250];
 
         [SerializeField] private DynamiteConfig dynamiteConfig;
@@ -36,7 +41,13 @@ namespace Game.Batyr.Dynamite
                 }
             }
 
-            Destroy(gameObject);
+            Destroy(this);
+        }
+
+        private void OnDestroy()
+        {
+            onExploded.Invoke();
+            onExploded.RemoveAllListeners();
         }
 
         private void OnDrawGizmosSelected()
