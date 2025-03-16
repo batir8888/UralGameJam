@@ -1,3 +1,4 @@
+using Extensions;
 using UnityEngine;
 
 namespace Game.Batyr.Dynamite
@@ -22,14 +23,13 @@ namespace Game.Batyr.Dynamite
             foreach (var hit in _colliders)
             {
                 if (hit == null || !hit.TryGetComponent<Rigidbody>(out var rb)) continue;
-                if (rb != null)
-                {
-                    rb.AddExplosionForce(dynamiteConfig.explosionForce,
-                        transform.position,
-                        dynamiteConfig.explosionRadius,
-                        dynamiteConfig.upwardsModifier,
-                        ForceMode.Impulse);
-                }
+                if (rb == null) continue;
+                rb.MakeNonKinematic();
+                rb.AddExplosionForce(dynamiteConfig.explosionForce,
+                    transform.position,
+                    dynamiteConfig.explosionRadius,
+                    dynamiteConfig.upwardsModifier,
+                    ForceMode.Impulse);
             }
         }
 
