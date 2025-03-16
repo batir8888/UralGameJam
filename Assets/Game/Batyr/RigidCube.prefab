@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 9007539066214335846}
   - component: {fileID: 5793621648765485157}
   - component: {fileID: 7310466012702315558}
+  - component: {fileID: -2869816004781998497}
   m_Layer: 0
   m_Name: RigidCube
   m_TagString: Untagged
@@ -133,3 +134,17 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-2869816004781998497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6169104932873886445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e24ff4517e104af1a2574f8dc09d042b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delayBeforeTracking: 5
+  scoreConfig: {fileID: 11400000, guid: 1806a4a3f920f914c82164da0587a812, type: 2}

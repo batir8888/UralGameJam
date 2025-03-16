@@ -13,7 +13,6 @@ namespace Game.Batyr.Dynamite
         {
             if (!Input.GetKeyDown(KeyCode.Space)) return;
             Explode();
-            Destroy(gameObject);
         }
 
         private void Explode()
@@ -25,12 +24,19 @@ namespace Game.Batyr.Dynamite
                 if (hit == null || !hit.TryGetComponent<Rigidbody>(out var rb)) continue;
                 if (rb == null) continue;
                 rb.MakeNonKinematic();
-                rb.AddExplosionForce(dynamiteConfig.explosionForce,
+                rb.AddExplosionForce(dynamiteConfig.explosionForce + Random.Range(-5f, 5f),
                     transform.position,
                     dynamiteConfig.explosionRadius,
                     dynamiteConfig.upwardsModifier,
                     ForceMode.Impulse);
+
+                if (hit.TryGetComponent<TrackableObject.TrackableObject>(out var trackableObject))
+                {
+                    trackableObject.StartTracking();
+                }
             }
+
+            Destroy(gameObject);
         }
 
         private void OnDrawGizmosSelected()
