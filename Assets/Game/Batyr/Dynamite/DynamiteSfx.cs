@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 
@@ -25,9 +24,7 @@ namespace Game.Batyr.Dynamite
         private IEnumerator PlaySfx()
         {
             _audioSource.PlayOneShot(sfx);
-
             yield return new WaitUntil(() => !_audioSource.isPlaying);
-
             Destroy(gameObject);
         }
 

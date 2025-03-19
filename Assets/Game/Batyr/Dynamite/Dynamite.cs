@@ -16,7 +16,7 @@ namespace Game.Batyr.Dynamite
 
         private void Update()
         {
-            if (!Input.GetKeyDown(KeyCode.Space)) return;
+            if (!Input.GetKeyDown(KeyCode.F)) return;
             Explode();
         }
 
@@ -26,8 +26,8 @@ namespace Game.Batyr.Dynamite
 
             foreach (var hit in _colliders)
             {
-                if (hit == null || !hit.TryGetComponent<Rigidbody>(out var rb)) continue;
-                if (rb == null) continue;
+                if (!hit || !hit.TryGetComponent<Rigidbody>(out var rb)) continue;
+                if (!rb) continue;
                 rb.MakeNonKinematic();
                 rb.AddExplosionForce(dynamiteConfig.explosionForce + Random.Range(-5f, 5f),
                     transform.position,
