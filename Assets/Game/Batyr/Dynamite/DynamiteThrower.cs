@@ -1,4 +1,6 @@
+using Game.Batyr.Phrases_System;
 using UnityEngine;
+using UnityServiceLocator;
 
 namespace Game.Batyr.Dynamite
 {
@@ -14,6 +16,8 @@ namespace Game.Batyr.Dynamite
             if (Input.GetMouseButtonDown(1))
             {
                 ThrowDynamite(transform.position + transform.forward, transform.forward);
+                ServiceLocator.ForSceneOf(this).Get<PhraseSystem>()
+                    .TriggerPhrase(PhraseSystem.PlayerAction.ThrowDynamite);
             }
         }
 
