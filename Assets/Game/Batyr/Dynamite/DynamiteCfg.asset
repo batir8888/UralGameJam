@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: DynamiteCfg
   m_EditorClassIdentifier: 
   explosionRadius: 10
-  explosionForce: 500
-  upwardsModifier: 5
+  explosionForce: 250
+  upwardsModifier: 2

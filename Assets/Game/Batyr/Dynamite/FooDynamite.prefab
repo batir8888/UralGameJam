@@ -12,10 +12,12 @@ GameObject:
   - component: {fileID: 4895781275884331304}
   - component: {fileID: 5501159313838311651}
   - component: {fileID: 3128835985112870628}
-  - component: {fileID: 4724651541511680074}
-  - component: {fileID: 4999257286540210419}
   - component: {fileID: -3840400373386081503}
   - component: {fileID: 2977479361586854372}
+  - component: {fileID: 4724651541511680074}
+  - component: {fileID: -8254212256647585932}
+  - component: {fileID: 4999257286540210419}
+  - component: {fileID: 7607363024553240958}
   m_Layer: 0
   m_Name: FooDynamite
   m_TagString: Untagged
@@ -111,47 +113,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4724651541511680074
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3044475521599900444}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab6fcb0057bd6644bab45ba15faef804, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onExploded:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4999257286540210419}
-        m_TargetAssemblyTypeName: Game.Batyr.Dynamite.DynamiteSfx, Assembly-CSharp
-        m_MethodName: Play
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  dynamiteConfig: {fileID: 11400000, guid: 21b486c33b0c4074f966a8762cb0b1ae, type: 2}
---- !u!114 &4999257286540210419
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3044475521599900444}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5dac492d498b425fbb9142af4c03bbd6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sfx: {fileID: 8300000, guid: 924e8a9750c49c443ae828e1b1019693, type: 3}
 --- !u!54 &-3840400373386081503
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -162,7 +123,7 @@ Rigidbody:
   serializedVersion: 4
   m_Mass: 5
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0.5
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -176,9 +137,9 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 1
+  m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!82 &2977479361586854372
 AudioSource:
   m_ObjectHideFlags: 0
@@ -275,3 +236,70 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &4724651541511680074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3044475521599900444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab6fcb0057bd6644bab45ba15faef804, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onExploded:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4999257286540210419}
+        m_TargetAssemblyTypeName: Game.Batyr.Dynamite.DynamiteSfx, Assembly-CSharp
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  dynamiteConfig: {fileID: 11400000, guid: 21b486c33b0c4074f966a8762cb0b1ae, type: 2}
+--- !u!114 &-8254212256647585932
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3044475521599900444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccad5b1d194186f42b2d910b02d38970, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultDrag: 0
+  grabbedDrag: 0
+--- !u!114 &4999257286540210419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3044475521599900444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dac492d498b425fbb9142af4c03bbd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sfx: {fileID: 8300000, guid: 924e8a9750c49c443ae828e1b1019693, type: 3}
+--- !u!114 &7607363024553240958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3044475521599900444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3d518e56b779284697b61c8911a8b9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

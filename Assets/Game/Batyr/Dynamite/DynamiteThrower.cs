@@ -11,7 +11,7 @@ namespace Game.Batyr.Dynamite
 
         private void Update()
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(1))
             {
                 ThrowDynamite(transform.position + transform.forward, transform.forward);
             }
