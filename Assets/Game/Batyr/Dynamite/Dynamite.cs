@@ -10,7 +10,7 @@ namespace Game.Batyr.Dynamite
     {
         public UnityEvent onExploded;
 
-        private readonly Collider[] _colliders = new Collider[250];
+        private readonly Collider[] _colliders = new Collider[800];
 
         [SerializeField] private DynamiteConfig dynamiteConfig;
 
@@ -29,9 +29,9 @@ namespace Game.Batyr.Dynamite
                 if (!hit || !hit.TryGetComponent<Rigidbody>(out var rb)) continue;
                 if (!rb) continue;
                 rb.MakeNonKinematic();
-                rb.AddExplosionForce(dynamiteConfig.explosionForce + Random.Range(-5f, 5f),
+                rb.AddExplosionForce(dynamiteConfig.explosionForce + Random.Range(10f, 35f),
                     transform.position,
-                    dynamiteConfig.explosionRadius,
+                    dynamiteConfig.explosionRadius + Random.Range(0.3f, 0.7f),
                     dynamiteConfig.upwardsModifier,
                     ForceMode.Impulse);
 
