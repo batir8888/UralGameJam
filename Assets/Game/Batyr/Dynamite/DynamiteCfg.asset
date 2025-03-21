@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4478932017243e2ac34e1c552250d80, type: 3}
   m_Name: DynamiteCfg
   m_EditorClassIdentifier: 
-  explosionRadius: 10
+  explosionRadius: 4
   explosionForce: 250
-  upwardsModifier: 2
+  upwardsModifier: 10

@@ -28,6 +28,7 @@ namespace Game.Batyr.HL2Physics
         public void Throw(Vector3 force)
         {
             _rb.useGravity = true;
+            _rb.MakeNonKinematic();
             _rb.drag = defaultDrag;
             _rb.AddForce(force, ForceMode.VelocityChange);
         }
