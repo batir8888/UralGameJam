@@ -1,24 +1,36 @@
+using System;
+using Game.Batyr.Inventory_System;
 using UnityEngine;
 using TMPro;
+using UnityServiceLocator;
 
 public class UITimer : MonoBehaviour
 {
-    [SerializeField] private int bombСounter;
-    public float timeRemaining = 60;
-    public bool timerIsRunning;
     public TextMeshProUGUI timeText;
     public TextMeshProUGUI bombText;
+    public event Action TimerEnded;
+
+    private bool _timerIsRunning;
+    private InventoryManager _inventoryManager;
+
+    [SerializeField] private float timeRemaining = 60;
+
+    private void Awake()
+    {
+        ServiceLocator.ForSceneOf(this).Register(this);
+    }
 
     private void Start()
     {
-        timerIsRunning = true;
+        _inventoryManager = ServiceLocator.ForSceneOf(this).Get<InventoryManager>();
+        _inventoryManager.DynamiteCountChanged += OnDynamiteCountChanged;
+
+        bombText.text = _inventoryManager.DynamitesCount.ToString();
     }
 
     private void Update()
     {
-        bombText.text = bombСounter.ToString();
-
-        if (!timerIsRunning) return;
+        if (!_timerIsRunning) return;
         if (timeRemaining > 0)
         {
             timeRemaining -= Time.deltaTime;
@@ -26,8 +38,9 @@ public class UITimer : MonoBehaviour
         }
         else
         {
+            TimerEnded?.Invoke();
             timeRemaining = 0;
-            timerIsRunning = false;
+            _timerIsRunning = false;
         }
     }
 
@@ -39,5 +52,15 @@ public class UITimer : MonoBehaviour
         float seconds = Mathf.FloorToInt(timeToDisplay % 60);
 
         timeText.text = $"{minutes:00}:{seconds:00}";
+    }
+
+    private void OnDynamiteCountChanged(int count)
+    {
+        bombText.text = count.ToString();
+    }
+
+    public void StartTimer()
+    {
+        _timerIsRunning = true;
     }
 }

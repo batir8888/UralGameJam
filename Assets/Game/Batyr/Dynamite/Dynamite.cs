@@ -14,13 +14,7 @@ namespace Game.Batyr.Dynamite
 
         [SerializeField] private DynamiteConfig dynamiteConfig;
 
-        private void Update()
-        {
-            if (!Input.GetKeyDown(KeyCode.F)) return;
-            Explode();
-        }
-
-        private void Explode()
+        public void Explode()
         {
             Physics.OverlapSphereNonAlloc(transform.position, dynamiteConfig.explosionRadius, _colliders);
 
