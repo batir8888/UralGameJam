@@ -1,6 +1,7 @@
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
+using Game.Batyr.Dynamite;
 
 public class StartScript : MonoBehaviour
 {
@@ -11,8 +12,13 @@ public class StartScript : MonoBehaviour
     [SerializeField] float fadeTime = 0.3f;
     [SerializeField] Image darkPanel;
 
+    private Dynamite[] dynamites;
+
     void Start()
     {
+        // Находим все объекты с компонентом Dynamite в сцене
+        dynamites = FindObjectsOfType<Dynamite>();
+
         audioSource = GetComponent<AudioSource>();
 
         if (!audioSource)
@@ -34,10 +40,17 @@ public class StartScript : MonoBehaviour
         }
     }
 
-    public void Start_Button()
+    public void StartButton()
     {
         PlaySound(soundEffect);
         transform.DOMoveY(0, time_move);
+
+        // Вызываем Explode() для всех найденных объектов Dynamite
+        foreach (var dynamite in dynamites)
+        {
+            dynamite.Explode();
+        }
+        
         
         // Fade in the dark panel
         if (darkPanel != null)
