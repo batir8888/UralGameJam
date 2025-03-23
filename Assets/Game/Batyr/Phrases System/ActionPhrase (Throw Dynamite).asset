@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: ActionPhrase (Throw Dynamite)
   m_EditorClassIdentifier: 
   action: 0
-  phrases: []
+  phrases:
+  - {fileID: 8300000, guid: 37ca4052042a5d34193f91ba040140c3, type: 3}

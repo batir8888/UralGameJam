@@ -101,13 +101,13 @@ namespace Game.Batyr.Phrases_System
             }
 
             ActionPhraseConfig category = actionPhraseConfigs.FirstOrDefault(c => c.action == playerAction);
-            if (category && category.phrases.Count > 0)
+            if (category && category.phrases.Count > 0 && Random.value > 0.75f)
             {
                 PlayRandomPhrase(category.phrases);
             }
             else
             {
-                Debug.LogWarning($"Нет фраз для действия: {playerAction}");
+                Debug.LogWarning($"Нет фраз для действия: {playerAction} или вероятность не прошла");
             }
         }
 
