@@ -1,4 +1,5 @@
 using System.Linq;
+using Game.Batyr.Task_System;
 using UnityEngine;
 using UnityServiceLocator;
 
@@ -31,6 +32,14 @@ namespace Game.Batyr.Round_System
         {
             _dynamites = FindObjectsOfType<Dynamite.Dynamite>();
             _dynamites.ToList().ForEach(d => d.Explode());
+            Debug.Log(
+                $"{ServiceLocator.ForSceneOf(this).Get<RetrieveSafeTask>().GetDescription()} -> {ServiceLocator.ForSceneOf(this).Get<RetrieveSafeTask>().IsCompleted()}");
+            Debug.Log(
+                $"{ServiceLocator.ForSceneOf(this).Get<TurnOffGasTask>().GetDescription()} -> {ServiceLocator.ForSceneOf(this).Get<TurnOffGasTask>().IsCompleted()}");
+            // Debug.Log(
+            //     $"{ServiceLocator.ForSceneOf(this).Get<RescueCatTask>().GetDescription()} -> {ServiceLocator.ForSceneOf(this).Get<RescueCatTask>().IsCompleted()}");
+            Debug.Log(
+                $"{ServiceLocator.ForSceneOf(this).Get<TurnOffElectricity>().GetDescription()} -> {ServiceLocator.ForSceneOf(this).Get<TurnOffElectricity>().IsCompleted()}");
         }
 
         private void OnTimerEnded()
