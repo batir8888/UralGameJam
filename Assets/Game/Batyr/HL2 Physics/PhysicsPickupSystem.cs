@@ -1,4 +1,6 @@
+using Game.Batyr.Phrases_System;
 using UnityEngine;
+using UnityServiceLocator;
 
 namespace Game.Batyr.HL2Physics
 {
@@ -6,6 +8,7 @@ namespace Game.Batyr.HL2Physics
     {
         private PickupableObject _heldObject;
         private Camera _camera;
+        private PhraseSystem _phraseSystem;
 
         [SerializeField] private float pickupRange = 3f;
         [SerializeField] private float throwForce = 25f;
@@ -15,6 +18,7 @@ namespace Game.Batyr.HL2Physics
         private void Awake()
         {
             _camera = Camera.main;
+            _phraseSystem = ServiceLocator.ForSceneOf(this).Get<PhraseSystem>();
         }
 
         private void Update()
@@ -50,6 +54,7 @@ namespace Game.Batyr.HL2Physics
         {
             if (!_heldObject) return;
             _heldObject.Throw(_camera.transform.forward * throwForce);
+            _phraseSystem.TriggerPhrase(PhraseSystem.PlayerAction.ThrowObject);
             _heldObject = null;
         }
     }
