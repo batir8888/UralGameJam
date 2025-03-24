@@ -9,9 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4478932017243e2ac34e1c552250d80, type: 3}
-  m_Name: DynamiteCfg
+  m_Script: {fileID: 11500000, guid: 7a84164675a345c98ef588a1bf02efb6, type: 3}
+  m_Name: ActionPhrase (Throw Object)
   m_EditorClassIdentifier: 
-  explosionRadius: 4.5
-  explosionForce: 225
-  upwardsModifier: 5
+  action: 1
+  phrases:
+  - {fileID: 8300000, guid: 37ca4052042a5d34193f91ba040140c3, type: 3}
+  - {fileID: 8300000, guid: ee7d6612e23523348a91706e96783502, type: 3}
