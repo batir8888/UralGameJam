@@ -6,13 +6,13 @@ public class SpawnEffect : MonoBehaviour
     public float pause = 1;
     public AnimationCurve fadeIn;
 
-    ParticleSystem ps;
-    float timer = 0;
-    Renderer _renderer;
+    private ParticleSystem ps;
+    private float timer = 0;
+    private Renderer _renderer;
 
-    int shaderProperty;
+    private int shaderProperty;
 
-    void Start()
+    private void Start()
     {
         shaderProperty = Shader.PropertyToID("_cutoff");
         _renderer = GetComponent<Renderer>();
@@ -24,7 +24,7 @@ public class SpawnEffect : MonoBehaviour
         ps.Play();
     }
 
-    void Update()
+    private void Update()
     {
         if (timer < spawnEffectTime + pause)
         {
