@@ -2,19 +2,20 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
 using Game.Batyr.Dynamite;
+using UnityEngine.SceneManagement;
 
 public class StartScript : MonoBehaviour
 {
     private AudioSource audioSource;
 
     public AudioClip soundEffect;
-    [SerializeField] float time_move = 0.5f;
-    [SerializeField] float fadeTime = 0.3f;
-    [SerializeField] Image darkPanel;
+    [SerializeField] private float time_move = 0.5f;
+    [SerializeField] private float fadeTime = 0.3f;
+    [SerializeField] private Image darkPanel;
 
     private Dynamite[] dynamites;
 
-    void Start()
+    private void Start()
     {
         // Находим все объекты с компонентом Dynamite в сцене
         dynamites = FindObjectsOfType<Dynamite>();
@@ -25,7 +26,7 @@ public class StartScript : MonoBehaviour
         {
             audioSource = gameObject.AddComponent<AudioSource>();
         }
-        
+
         // Initialize dark panel if not assigned
         if (darkPanel == null)
         {
@@ -50,13 +51,13 @@ public class StartScript : MonoBehaviour
         {
             dynamite.Explode();
         }
-        
-        
+
+
         // Fade in the dark panel
         if (darkPanel != null)
         {
             darkPanel.gameObject.SetActive(true);
-            darkPanel.DOFade(1, fadeTime);
+            darkPanel.DOFade(1, fadeTime).OnComplete(() => SceneManager.LoadScene("SampleScene"));
         }
     }
 

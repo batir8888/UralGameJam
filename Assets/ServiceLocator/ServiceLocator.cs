@@ -9,14 +9,14 @@ namespace UnityServiceLocator
 {
     public class ServiceLocator : MonoBehaviour
     {
-        static ServiceLocator global;
-        static Dictionary<Scene, ServiceLocator> sceneContainers;
-        static List<GameObject> tmpSceneGameObjects;
+        private static ServiceLocator global;
+        private static Dictionary<Scene, ServiceLocator> sceneContainers;
+        private static List<GameObject> tmpSceneGameObjects;
 
-        readonly ServiceManager services = new ServiceManager();
+        private readonly ServiceManager services = new ServiceManager();
 
-        const string k_globalServiceLocatorName = "ServiceLocator [Global]";
-        const string k_sceneServiceLocatorName = "ServiceLocator [Scene]";
+        private const string k_globalServiceLocatorName = "ServiceLocator [Global]";
+        private const string k_sceneServiceLocatorName = "ServiceLocator [Scene]";
 
         internal void ConfigureAsGlobal(bool dontDestroyOnLoad)
         {
@@ -187,17 +187,17 @@ namespace UnityServiceLocator
             return TryGetNextInHierarchy(out ServiceLocator container) && container.TryGet(out service);
         }
 
-        bool TryGetService<T>(out T service) where T : class
+        private bool TryGetService<T>(out T service) where T : class
         {
             return services.TryGet(out service);
         }
 
-        bool TryGetService<T>(Type type, out T service) where T : class
+        private bool TryGetService<T>(Type type, out T service) where T : class
         {
             return services.TryGet(out service);
         }
 
-        bool TryGetNextInHierarchy(out ServiceLocator container)
+        private bool TryGetNextInHierarchy(out ServiceLocator container)
         {
             if (this == global)
             {
@@ -209,7 +209,7 @@ namespace UnityServiceLocator
             return container != null;
         }
 
-        void OnDestroy()
+        private void OnDestroy()
         {
             if (this == global)
             {
@@ -222,7 +222,7 @@ namespace UnityServiceLocator
         }
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-        static void ResetStatics()
+        private static void ResetStatics()
         {
             global = null;
             sceneContainers = new Dictionary<Scene, ServiceLocator>();
@@ -231,13 +231,13 @@ namespace UnityServiceLocator
 
 #if UNITY_EDITOR
         [MenuItem("GameObject/ServiceLocator/Add Global")]
-        static void AddGlobal()
+        private static void AddGlobal()
         {
             var go = new GameObject(k_globalServiceLocatorName, typeof(ServiceLocatorGlobal));
         }
 
         [MenuItem("GameObject/ServiceLocator/Add Scene")]
-        static void AddScene()
+        private static void AddScene()
         {
             var go = new GameObject(k_sceneServiceLocatorName, typeof(ServiceLocatorScene));
         }

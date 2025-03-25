@@ -204,7 +204,6 @@ GameObject:
   - component: {fileID: 44848059}
   - component: {fileID: 44848058}
   - component: {fileID: 44848057}
-  - component: {fileID: 44848061}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -297,25 +296,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0.947, y: 0.6}
   m_SizeDelta: {x: 3, y: 3}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &44848061
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 44848056}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42d4bcdcec4a31f479808e91fd66c639, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  panel: {fileID: 1322532536}
-  sliderSFX: {fileID: 1200354917}
-  sliderMusic: {fileID: 1756586427}
-  sliderVoice: {fileID: 60396216}
-  mixerSFX: {fileID: 24100000, guid: e07ef633837f11046b281ccb30f06f53, type: 2}
-  mixerMusic: {fileID: 24100000, guid: ef7932004feb76b4c99a15efa572a32f, type: 2}
-  mixerVoice: {fileID: 24100000, guid: 55e8dec4c9905894e8e63af44643b2a3, type: 2}
 --- !u!1 &60396214
 GameObject:
   m_ObjectHideFlags: 0
@@ -402,7 +382,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 0.5
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -625,7 +605,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 44848061}
+      - m_Target: {fileID: 2010849746}
         m_TargetAssemblyTypeName: MenuButons, Assembly-CSharp
         m_MethodName: ClosePanel
         m_Mode: 1
@@ -2901,7 +2881,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 44848061}
+      - m_Target: {fileID: 2010849746}
         m_TargetAssemblyTypeName: MenuButons, Assembly-CSharp
         m_MethodName: OpenPanel
         m_Mode: 1
@@ -3151,7 +3131,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 5136102795029616109, guid: b9c554b6cad4d57459434ba3d3a89c1a, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b9c554b6cad4d57459434ba3d3a89c1a, type: 3}
@@ -3435,7 +3416,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 0.5
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -3762,7 +3743,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 44848061}
+      - m_Target: {fileID: 2010849746}
         m_TargetAssemblyTypeName: MenuButons, Assembly-CSharp
         m_MethodName: ExitGame
         m_Mode: 1
@@ -4839,7 +4820,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 0.5
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -4959,6 +4940,7 @@ GameObject:
   - component: {fileID: 2010849744}
   - component: {fileID: 2010849743}
   - component: {fileID: 2010849742}
+  - component: {fileID: 2010849746}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -5052,6 +5034,25 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &2010849746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2010849741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42d4bcdcec4a31f479808e91fd66c639, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  panel: {fileID: 1322532536}
+  sliderSfx: {fileID: 1200354917}
+  sliderMusic: {fileID: 1756586427}
+  sliderVoice: {fileID: 60396216}
+  mixerSfx: {fileID: 24100000, guid: e07ef633837f11046b281ccb30f06f53, type: 2}
+  mixerMusic: {fileID: 24100000, guid: ef7932004feb76b4c99a15efa572a32f, type: 2}
+  mixerVoice: {fileID: 24100000, guid: 55e8dec4c9905894e8e63af44643b2a3, type: 2}
 --- !u!1 &2106853285
 GameObject:
   m_ObjectHideFlags: 0

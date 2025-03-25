@@ -1,4 +1,6 @@
+using System.Collections;
 using System.Linq;
+using Game.Batyr.Inventory_System;
 using Game.Batyr.Task_System;
 using UnityEngine;
 using UnityServiceLocator;
@@ -9,9 +11,14 @@ namespace Game.Batyr.Round_System
     {
         private UITimer _uiTimer;
         private Dynamite.Dynamite[] _dynamites;
+        private InventoryManager _inventoryManager;
+
+        [SerializeField] private GameObject dynamitePrefab;
+        [SerializeField] private Transform player;
 
         private void Start()
         {
+            _inventoryManager = ServiceLocator.ForSceneOf(this).Get<InventoryManager>();
             _uiTimer = ServiceLocator.ForSceneOf(this).Get<UITimer>();
             _uiTimer.TimerEnded += OnTimerEnded;
             StartRound();
@@ -30,8 +37,7 @@ namespace Game.Batyr.Round_System
 
         private void EndRound()
         {
-            _dynamites = FindObjectsOfType<Dynamite.Dynamite>();
-            _dynamites.ToList().ForEach(d => d.Explode());
+            StartCoroutine(SpawnDynamites());
             Debug.Log(
                 $"{ServiceLocator.ForSceneOf(this).Get<RetrieveSafeTask>().GetDescription()} -> {ServiceLocator.ForSceneOf(this).Get<RetrieveSafeTask>().IsCompleted()}");
             Debug.Log(
@@ -46,6 +52,23 @@ namespace Game.Batyr.Round_System
         {
             EndRound();
             Debug.Log("Timer ended");
+        }
+
+        private IEnumerator SpawnDynamites()
+        {
+            if (_inventoryManager.DynamitesCount > 0)
+            {
+                while (_inventoryManager.DynamitesCount > 0)
+                {
+                    Instantiate(dynamitePrefab, player.position, Quaternion.identity);
+                    _inventoryManager.ReduceDynamitesCount();
+                }
+
+                yield return new WaitForSeconds(0.75f);
+            }
+            
+            _dynamites = FindObjectsOfType<Dynamite.Dynamite>();
+            _dynamites.ToList().ForEach(d => d.Explode());
         }
     }
 }
