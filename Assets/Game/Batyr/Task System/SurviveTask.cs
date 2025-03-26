@@ -9,6 +9,11 @@ namespace Game.Batyr.Task_System
         [SerializeField] private Transform safeZone;
         [SerializeField] private float safeDistance = 6f;
 
+        private void Awake()
+        {
+            ServiceLocator.ForSceneOf(this).Register(this);
+        }
+
         public bool IsCompleted()
         {
             return Vector3.Distance(transform.position, safeZone.position) <= safeDistance &&
