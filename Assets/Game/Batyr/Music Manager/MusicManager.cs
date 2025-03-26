@@ -12,7 +12,6 @@ namespace Game.Batyr.Music_Manager
         private void Awake()
         {
             _audioSource = GetComponent<AudioSource>();
-            DontDestroyOnLoad(this);
         }
 
         private void Start()
