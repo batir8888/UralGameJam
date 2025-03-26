@@ -5,13 +5,13 @@ namespace Game.Batyr.ScoreManager
 {
     public class ScoreManager : MonoBehaviour, IScoreManager
     {
-        private int Score { get; set; }
+        public int Score { get; private set; }
         private int Penalty { get; set; }
         public int TotalScore { get; private set; }
 
         private void Awake()
         {
-            ServiceLocator.ForSceneOf(this).Register<IScoreManager>(this);
+            ServiceLocator.ForSceneOf(this).Register(this);
         }
 
         public void AddScore(int score)

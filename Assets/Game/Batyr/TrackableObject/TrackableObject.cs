@@ -11,7 +11,7 @@ namespace Game.Batyr.TrackableObject
         private WaitForSeconds _waitForSeconds;
         private float _delta;
 
-        [SerializeField] private float delayBeforeTracking = 5f;
+        [SerializeField] private float delayBeforeTracking = 2.5f;
 
         protected virtual void Awake()
         {
