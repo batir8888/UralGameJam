@@ -25,7 +25,7 @@ namespace Game.Batyr.Dynamite
         {
             if (!Input.GetMouseButtonDown(1) || _inventoryManager.DynamitesCount <= 0) return;
             ThrowDynamite(transform.position + transform.forward, transform.forward);
-            _phraseSystem.TriggerPhrase(PhraseSystem.PlayerAction.ThrowDynamite);
+            _phraseSystem.PlayActionPhrase(PhraseKey.ThrowDynamite);
         }
 
         private void ThrowDynamite(Vector3 position, Vector3 direction)

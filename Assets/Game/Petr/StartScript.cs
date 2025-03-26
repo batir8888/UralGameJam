@@ -17,7 +17,6 @@ public class StartScript : MonoBehaviour
 
     private void Start()
     {
-        // Находим все объекты с компонентом Dynamite в сцене
         dynamites = FindObjectsOfType<Dynamite>();
 
         audioSource = GetComponent<AudioSource>();
@@ -27,14 +26,12 @@ public class StartScript : MonoBehaviour
             audioSource = gameObject.AddComponent<AudioSource>();
         }
 
-        // Initialize dark panel if not assigned
         if (darkPanel == null)
         {
             Debug.LogWarning("Dark panel not assigned. Please assign a UI Image to the darkPanel field.");
         }
         else
         {
-            // Make sure the panel starts transparent
             Color panelColor = darkPanel.color;
             panelColor.a = 0f;
             darkPanel.color = panelColor;
@@ -46,14 +43,12 @@ public class StartScript : MonoBehaviour
         PlaySound(soundEffect);
         transform.DOMoveY(0, time_move);
 
-        // Вызываем Explode() для всех найденных объектов Dynamite
         foreach (var dynamite in dynamites)
         {
             dynamite.Explode();
         }
 
 
-        // Fade in the dark panel
         if (darkPanel != null)
         {
             darkPanel.gameObject.SetActive(true);
