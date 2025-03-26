@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -9,6 +10,7 @@ namespace Game.Batyr.Phrases_System
     [RequireComponent(typeof(AudioSource))]
     public class PhraseSystem : MonoBehaviour
     {
+        private Emotions _emotions;
         private Dictionary<PhraseKey, List<AudioClip>> _phraseMap;
         private float _lastPlayedTime;
 
@@ -27,6 +29,11 @@ namespace Game.Batyr.Phrases_System
             InitializePhraseMap();
 
             ServiceLocator.ForSceneOf(this).Register(this);
+        }
+
+        private void Start()
+        {
+            _emotions = ServiceLocator.ForSceneOf(this).Get<Emotions>();
         }
 
         private void InitializePhraseMap()
@@ -62,30 +69,47 @@ namespace Game.Batyr.Phrases_System
 
             if (_phraseMap.TryGetValue(key, out List<AudioClip> clips))
             {
-                if (clips != null && clips.Count > 0)
+                if (clips is not { Count: > 0 }) return;
+                AudioClip clipToPlay = clips[Random.Range(0, clips.Count)];
+
+                if (!clipToPlay) return;
+                if (interruptCurrent || !audioSource.isPlaying)
                 {
-                    AudioClip clipToPlay = clips[Random.Range(0, clips.Count)];
-
-                    if (clipToPlay != null)
+                    if (audioSource.isPlaying && interruptCurrent)
                     {
-                        if (interruptCurrent || !audioSource.isPlaying)
-                        {
-                            if (audioSource.isPlaying && interruptCurrent)
-                            {
-                                audioSource.Stop();
-                            }
-
-                            audioSource.clip = clipToPlay;
-                            audioSource.Play();
-                            Debug.Log($"Playing phrase: {key} (Clip: {clipToPlay.name})");
-
-                            _lastPlayedTime = Time.time;
-                        }
-                        else
-                        {
-                            Debug.Log($"Skipping phrase {key} because another is playing and interrupt=false.");
-                        }
+                        audioSource.Stop();
                     }
+
+                    audioSource.clip = clipToPlay;
+                    audioSource.Play();
+
+                    switch (key)
+                    {
+                        case PhraseKey.TutorialStart:
+                            _emotions.Calm(7f,
+                                () => _emotions.Normal(16f,
+                                    () => _emotions.Calm(5f, () => _emotions.Normal(5f))));
+                            break;
+                        case PhraseKey.ResultAllTasksComplete:
+                        case PhraseKey.ResultGenericFail:
+                            break;
+                        case PhraseKey.ThrowDynamite:
+                            _emotions.Anger(3f, () => _emotions.Normal(1f));
+                            break;
+                        case PhraseKey.ThrowObject:
+                            _emotions.Anger(3f, () => _emotions.Normal(1f));
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException(nameof(key), key, null);
+                    }
+
+                    Debug.Log($"Playing phrase: {key} (Clip: {clipToPlay.name})");
+
+                    _lastPlayedTime = Time.time;
+                }
+                else
+                {
+                    Debug.Log($"Skipping phrase {key} because another is playing and interrupt=false.");
                 }
             }
             else
@@ -99,9 +123,12 @@ namespace Game.Batyr.Phrases_System
             PlayPhrase(PhraseKey.TutorialStart, true, true);
         }
 
-        public void PlayActionPhrase(PhraseKey actionKey)
+        public void PlayActionPhrase(PhraseKey actionKey, float chance)
         {
-            PlayPhrase(actionKey, false);
+            if (Random.value <= chance)
+            {
+                PlayPhrase(actionKey, false);
+            }
         }
 
         public void PlayResultPhrase(List<string> failedTaskIDs)
@@ -116,9 +143,8 @@ namespace Game.Batyr.Phrases_System
             {
                 string taskID = failedTaskIDs[0];
                 string specificEnumName = $"Result_Task_{taskID}_Failed";
-                PhraseKey specificFailKey;
 
-                if (System.Enum.TryParse(specificEnumName, out specificFailKey))
+                if (Enum.TryParse(specificEnumName, out PhraseKey specificFailKey))
                 {
                     if (_phraseMap.ContainsKey(specificFailKey))
                     {
