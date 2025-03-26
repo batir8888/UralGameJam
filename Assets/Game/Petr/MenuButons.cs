@@ -44,6 +44,17 @@ public class MenuButons : MonoBehaviour
         mixerSfx.SetFloat("Volume", ConvertD(sliderSfx.value));
         mixerMusic.SetFloat("Volume", ConvertD(sliderMusic.value));
         mixerVoice.SetFloat("Volume", ConvertD(sliderVoice.value));
+
+        if (Input.GetKeyDown(KeyCode.Escape)){
+            if (panel.activeSelf)
+            {
+                ClosePanel();
+            }
+            else
+            {
+                OpenPanel();
+            }
+        }
     }
 
     private void SaveSettings()
