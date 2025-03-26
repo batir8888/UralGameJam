@@ -3349,6 +3349,11 @@ PrefabInstance:
       propertyPath: timeRemaining
       value: 60
       objectReference: {fileID: 0}
+    - target: {fileID: 4903059457686119810, guid: 4b41ca7a097f92f48b66da3d1239883b,
+        type: 3}
+      propertyPath: m_text
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6542202303205615451, guid: 4b41ca7a097f92f48b66da3d1239883b,
         type: 3}
       propertyPath: m_PixelPerfect
@@ -26644,7 +26649,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Exit Game
+  m_text: "\u0412\u044B\u0439\u0442\u0438 \u0438\u0437 \u0438\u0433\u0440\u044B"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b0dc1c64bf6dece43a46856d3ae5b68b, type: 2}
   m_sharedMaterial: {fileID: 4807823238971595758, guid: b0dc1c64bf6dece43a46856d3ae5b68b,
