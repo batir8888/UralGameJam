@@ -26,12 +26,14 @@ public class MenuButons : MonoBehaviour
     public void OpenPanel()
     {
         panel.SetActive(true);
+        EnableCursor();
     }
 
     public void ClosePanel()
     {
         panel.SetActive(false);
         SaveSettings();
+        DisableCursor();
     }
 
     private float ConvertD(float value)
@@ -45,15 +47,14 @@ public class MenuButons : MonoBehaviour
         mixerMusic.SetFloat("Volume", ConvertD(sliderMusic.value));
         mixerVoice.SetFloat("Volume", ConvertD(sliderVoice.value));
 
-        if (Input.GetKeyDown(KeyCode.Escape)){
-            if (panel.activeSelf)
-            {
-                ClosePanel();
-            }
-            else
-            {
-                OpenPanel();
-            }
+        if (!Input.GetKeyDown(KeyCode.Escape)) return;
+        if (panel.activeSelf)
+        {
+            ClosePanel();
+        }
+        else
+        {
+            OpenPanel();
         }
     }
 
@@ -74,5 +75,19 @@ public class MenuButons : MonoBehaviour
     private void OnDestroy()
     {
         SaveSettings();
+    }
+
+    private void EnableCursor()
+    {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        Time.timeScale = 0f;
+    }
+
+    private void DisableCursor()
+    {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Confined;
+        Time.timeScale = 1f;
     }
 }
