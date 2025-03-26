@@ -54,7 +54,7 @@ namespace Game.Batyr.HL2Physics
         {
             if (!_heldObject) return;
             _heldObject.Throw(_camera.transform.forward * throwForce);
-            _phraseSystem.TriggerPhrase(PhraseSystem.PlayerAction.ThrowObject);
+            _phraseSystem.PlayActionPhrase(PhraseKey.ThrowObject);
             _heldObject = null;
         }
     }

@@ -9,119 +9,150 @@ namespace Game.Batyr.Phrases_System
     [RequireComponent(typeof(AudioSource))]
     public class PhraseSystem : MonoBehaviour
     {
-        public enum PlayerAction
-        {
-            ThrowDynamite,
-            ThrowObject,
-            AboutCat,
-            AboutGas,
-            AboutElectricity,
-        }
+        private Dictionary<PhraseKey, List<AudioClip>> _phraseMap;
+        private float _lastPlayedTime;
 
-        [Header("Phrases Configs")] [SerializeField]
-        private List<ActionPhraseConfig> actionPhraseConfigs;
-
-        [SerializeField] private TimedPhrasesConfig timedPhrasesConfig;
-        [Range(0f, 1f)] [SerializeField] private float timedPhraseProbability = 0.5f;
-
-        [Header("Time Settings")] [SerializeField]
-        private float minTimeBetweenPhrases = 5f;
-
-        [SerializeField] private float maxTimeBetweenPhrases = 5f;
-
-        private AudioSource _audioSource;
-        private float _nextTimedPhraseTime;
-        private readonly HashSet<AudioClip> _recentlyPlayedTimedPhrases = new();
-        private const int MaxRecentlyPlayedTimedPhrases = 5;
+        [SerializeField] private AudioSource audioSource;
+        [SerializeField] private PhraseDatabase phraseDatabase;
+        [SerializeField] private float globalCooldown = 0.5f;
 
         private void Awake()
         {
-            _audioSource = GetComponent<AudioSource>();
+            if (audioSource == null)
+            {
+                audioSource = gameObject.GetComponent<AudioSource>();
+                if (audioSource == null) audioSource = gameObject.AddComponent<AudioSource>();
+            }
+
+            InitializePhraseMap();
+
             ServiceLocator.ForSceneOf(this).Register(this);
-
-            ScheduleNextTimedPhrase();
         }
 
-        private void Update()
+        private void InitializePhraseMap()
         {
-            if (!(Time.time >= _nextTimedPhraseTime)) return;
-            if (Random.value <= timedPhraseProbability)
+            _phraseMap = new Dictionary<PhraseKey, List<AudioClip>>();
+            if (phraseDatabase != null)
             {
-                PlayRandomTimedPhrase();
-            }
-
-            ScheduleNextTimedPhrase();
-        }
-
-        private void ScheduleNextTimedPhrase()
-        {
-            _nextTimedPhraseTime = Time.time + Random.Range(minTimeBetweenPhrases, maxTimeBetweenPhrases);
-        }
-
-        private void PlayRandomTimedPhrase()
-        {
-            if (_audioSource.isPlaying)
-            {
-                return;
-            }
-
-            if (!timedPhrasesConfig || timedPhrasesConfig.phrases.Count == 0)
-            {
-                return;
-            }
-
-            AudioClip phraseToPlay;
-            var availablePhrases = timedPhrasesConfig.phrases.Except(_recentlyPlayedTimedPhrases).ToList();
-
-            if (availablePhrases.Count > 0)
-            {
-                phraseToPlay = availablePhrases[Random.Range(0, availablePhrases.Count)];
+                foreach (var phraseEntry in phraseDatabase.phrases)
+                {
+                    if (phraseEntry.clips != null && phraseEntry.clips.Any(clip => clip != null))
+                    {
+                        _phraseMap[phraseEntry.key] = phraseEntry.clips.Where(clip => clip != null).ToList();
+                    }
+                    else
+                    {
+                        Debug.LogWarning($"PhraseEntry для ключа {phraseEntry.key} не содержит валидных AudioClip'ов.");
+                    }
+                }
             }
             else
             {
-                _recentlyPlayedTimedPhrases.Clear();
-                phraseToPlay = timedPhrasesConfig.phrases[Random.Range(0, timedPhrasesConfig.phrases.Count)];
-            }
-
-            if (!phraseToPlay) return;
-            _audioSource.PlayOneShot(phraseToPlay);
-
-            _recentlyPlayedTimedPhrases.Add(phraseToPlay);
-            if (_recentlyPlayedTimedPhrases.Count > MaxRecentlyPlayedTimedPhrases)
-            {
-                _recentlyPlayedTimedPhrases.Remove(_recentlyPlayedTimedPhrases.First());
+                Debug.LogError("PhraseDatabase не назначен в PhraseManager!");
             }
         }
 
-        public void TriggerPhrase(PlayerAction playerAction)
+        public void PlayPhrase(PhraseKey key, bool interruptCurrent = true, bool ignoreCooldown = false)
         {
-            if (_audioSource.isPlaying)
+            if (!ignoreCooldown && Time.time < _lastPlayedTime + globalCooldown)
             {
+                Debug.Log($"Phrase {key} skipped due to global cooldown.");
                 return;
             }
 
-            ActionPhraseConfig category = actionPhraseConfigs.FirstOrDefault(c => c.action == playerAction);
-            if (category && category.phrases.Count > 0 && Random.value > 0.75f)
+            if (_phraseMap.TryGetValue(key, out List<AudioClip> clips))
             {
-                PlayRandomPhrase(category.phrases);
+                if (clips != null && clips.Count > 0)
+                {
+                    AudioClip clipToPlay = clips[Random.Range(0, clips.Count)];
+
+                    if (clipToPlay != null)
+                    {
+                        if (interruptCurrent || !audioSource.isPlaying)
+                        {
+                            if (audioSource.isPlaying && interruptCurrent)
+                            {
+                                audioSource.Stop();
+                            }
+
+                            audioSource.clip = clipToPlay;
+                            audioSource.Play();
+                            Debug.Log($"Playing phrase: {key} (Clip: {clipToPlay.name})");
+
+                            _lastPlayedTime = Time.time;
+                        }
+                        else
+                        {
+                            Debug.Log($"Skipping phrase {key} because another is playing and interrupt=false.");
+                        }
+                    }
+                }
             }
             else
             {
-                Debug.LogWarning($"Нет фраз для действия: {playerAction} или вероятность не прошла");
+                Debug.LogWarning($"Ключ фразы не найден в phraseMap: {key}");
             }
         }
 
-        private void PlayRandomPhrase(List<AudioClip> phrases)
+        public void PlayTutorialStartPhrase()
         {
-            if (_audioSource.isPlaying)
+            PlayPhrase(PhraseKey.TutorialStart, true, true);
+        }
+
+        public void PlayActionPhrase(PhraseKey actionKey)
+        {
+            PlayPhrase(actionKey, false);
+        }
+
+        public void PlayResultPhrase(List<string> failedTaskIDs)
+        {
+            PhraseKey keyToPlay;
+
+            if (failedTaskIDs == null || failedTaskIDs.Count == 0)
             {
-                return;
+                keyToPlay = PhraseKey.ResultAllTasksComplete;
+            }
+            else if (failedTaskIDs.Count == 1)
+            {
+                string taskID = failedTaskIDs[0];
+                string specificEnumName = $"Result_Task_{taskID}_Failed";
+                PhraseKey specificFailKey;
+
+                if (System.Enum.TryParse(specificEnumName, out specificFailKey))
+                {
+                    if (_phraseMap.ContainsKey(specificFailKey))
+                    {
+                        keyToPlay = specificFailKey;
+                    }
+                    else
+                    {
+                        Debug.LogWarning(
+                            $"Не найдена фраза для специфичного ключа {specificFailKey}, используется {PhraseKey.ResultGenericFail}");
+                        keyToPlay = PhraseKey.ResultGenericFail;
+                    }
+                }
+                else
+                {
+                    Debug.LogWarning(
+                        $"Не удалось найти Enum для {specificEnumName}, используется {PhraseKey.ResultGenericFail}");
+                    keyToPlay = PhraseKey.ResultGenericFail;
+                }
+            }
+            else
+            {
+                keyToPlay = PhraseKey.ResultGenericFail;
             }
 
-            if (phrases.Count > 0)
-            {
-                _audioSource.PlayOneShot(phrases[Random.Range(0, phrases.Count)]);
-            }
+            PlayPhrase(keyToPlay, true, true);
         }
+    }
+
+    public enum PhraseKey
+    {
+        TutorialStart,
+        ResultAllTasksComplete,
+        ResultGenericFail,
+        ThrowDynamite,
+        ThrowObject
     }
 }

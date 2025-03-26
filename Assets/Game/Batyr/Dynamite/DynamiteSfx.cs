@@ -30,7 +30,7 @@ namespace Game.Batyr.Dynamite
 
         private void OnDestroy()
         {
-            StopCoroutine(_coroutine);
+            if (_coroutine != null) StopCoroutine(_coroutine);
         }
     }
 }

@@ -20070,13 +20070,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a785a6c8edd43f4935e45b210b141f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actionPhraseConfigs:
-  - {fileID: 11400000, guid: 168ee89904132f1448f49b57c3f20c7f, type: 2}
-  - {fileID: 11400000, guid: c9027ee1c50f970448f00d93a4f6e18c, type: 2}
-  timedPhrasesConfig: {fileID: 0}
-  timedPhraseProbability: 1
-  minTimeBetweenPhrases: 5
-  maxTimeBetweenPhrases: 10
+  audioSource: {fileID: 1713333124}
+  phraseDatabase: {fileID: 11400000, guid: 590d7cf235678584d9c7493eb3145c04, type: 2}
+  globalCooldown: 0.5
 --- !u!82 &1713333124
 AudioSource:
   m_ObjectHideFlags: 0
@@ -26013,8 +26009,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55919ac34a26952479f3fc91f777b2fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveSpeed: 5
-  SprintSpeed: 10
+  MoveSpeed: 4
+  SprintSpeed: 4
   RotationSpeed: 2.5
   SpeedChangeRate: 10
   JumpHeight: 0.4
@@ -26028,8 +26024,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   CinemachineCameraTarget: {fileID: 5242107653345753433}
-  TopClamp: 89
-  BottomClamp: -89
+  TopClamp: 90
+  BottomClamp: -90
 --- !u!143 &453084650717462536
 CharacterController:
   m_ObjectHideFlags: 0
@@ -26051,9 +26047,9 @@ CharacterController:
   serializedVersion: 3
   m_Height: 1.66
   m_Radius: 0.2
-  m_SlopeLimit: 60
+  m_SlopeLimit: 45
   m_StepOffset: 0.3
-  m_SkinWidth: 0.002
+  m_SkinWidth: 0.0002
   m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0.83, z: 0}
 --- !u!114 &453084650717462542
