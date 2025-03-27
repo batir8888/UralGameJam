@@ -16,7 +16,7 @@ namespace Game.Batyr.Phrases_System
 
         [SerializeField] private AudioSource audioSource;
         [SerializeField] private PhraseDatabase phraseDatabase;
-        [SerializeField] private float globalCooldown = 0.5f;
+        [SerializeField] private float globalCooldown = 1f;
 
         private void Awake()
         {
@@ -94,10 +94,13 @@ namespace Game.Batyr.Phrases_System
                         case PhraseKey.ResultGenericFail:
                             break;
                         case PhraseKey.ThrowDynamite:
-                            _emotions.Anger(3f, () => _emotions.Normal(1f));
+                            _emotions.Anger(clipToPlay.length - 1f, () => _emotions.Normal(1f));
                             break;
                         case PhraseKey.ThrowObject:
-                            _emotions.Anger(3f, () => _emotions.Normal(1f));
+                            _emotions.Anger(clipToPlay.length - 1f, () => _emotions.Normal(1f));
+                            break;
+                        case PhraseKey.ThrowCat:
+                            _emotions.Anger(clipToPlay.length - 1f, () => _emotions.Normal(1f));
                             break;
                         default:
                             throw new ArgumentOutOfRangeException(nameof(key), key, null);
@@ -179,6 +182,7 @@ namespace Game.Batyr.Phrases_System
         ResultAllTasksComplete,
         ResultGenericFail,
         ThrowDynamite,
-        ThrowObject
+        ThrowObject,
+        ThrowCat,
     }
 }

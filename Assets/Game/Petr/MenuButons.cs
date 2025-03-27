@@ -13,8 +13,11 @@ public class MenuButons : MonoBehaviour
     [SerializeField] private AudioMixer mixerMusic;
     [SerializeField] private AudioMixer mixerVoice;
 
+    [SerializeField] private bool isMainMenu;
+
     private void Start()
     {
+        if (!isMainMenu) DisableCursor();
         LoadSettings();
     }
 
@@ -26,14 +29,14 @@ public class MenuButons : MonoBehaviour
     public void OpenPanel()
     {
         panel.SetActive(true);
-        EnableCursor();
+        if (!isMainMenu) EnableCursor();
     }
 
     public void ClosePanel()
     {
         panel.SetActive(false);
+        if (!isMainMenu) DisableCursor();
         SaveSettings();
-        DisableCursor();
     }
 
     private float ConvertD(float value)
@@ -77,14 +80,14 @@ public class MenuButons : MonoBehaviour
         SaveSettings();
     }
 
-    private void EnableCursor()
+    public void EnableCursor()
     {
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
         Time.timeScale = 0f;
     }
 
-    private void DisableCursor()
+    public void DisableCursor()
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Confined;

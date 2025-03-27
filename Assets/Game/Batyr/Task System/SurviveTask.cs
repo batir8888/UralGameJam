@@ -6,8 +6,8 @@ namespace Game.Batyr.Task_System
 {
     public class SurviveTask : MonoBehaviour, ITask
     {
-        [SerializeField] private Transform safeZone;
-        [SerializeField] private float safeDistance = 6f;
+        [SerializeField] private Transform dangerZone;
+        [SerializeField] private float dangerDistance = 6f;
 
         private void Awake()
         {
@@ -16,7 +16,7 @@ namespace Game.Batyr.Task_System
 
         public bool IsCompleted()
         {
-            return Vector3.Distance(transform.position, safeZone.position) <= safeDistance &&
+            return Vector3.Distance(transform.position, dangerZone.position) >= dangerDistance &&
                    ServiceLocator.ForSceneOf(this).Get<InventoryManager>().DynamitesCount <= 0;
         }
 
@@ -27,7 +27,7 @@ namespace Game.Batyr.Task_System
 
         private void OnDrawGizmosSelected()
         {
-            Gizmos.DrawWireSphere(safeZone.position, safeDistance);
+            Gizmos.DrawWireSphere(dangerZone.position, dangerDistance);
         }
     }
 }
