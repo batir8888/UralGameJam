@@ -1,4 +1,5 @@
 using Game.Batyr.Phrases_System;
+using Game.Batyr.Task_System;
 using UnityEngine;
 using UnityServiceLocator;
 
@@ -54,7 +55,13 @@ namespace Game.Batyr.HL2Physics
         {
             if (!_heldObject) return;
             _heldObject.Throw(_camera.transform.forward * throwForce);
-            _phraseSystem.PlayActionPhrase(PhraseKey.ThrowObject, 0.25f);
+            if (_heldObject.gameObject.TryGetComponent(out RescueCatTask task))
+            {
+                _phraseSystem.PlayActionPhrase(PhraseKey.ThrowCat, 0.5f);
+            }
+
+            _phraseSystem.PlayActionPhrase(PhraseKey.ThrowObject, 0.5f);
+
             _heldObject = null;
         }
     }

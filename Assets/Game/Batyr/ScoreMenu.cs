@@ -16,6 +16,7 @@ namespace Game.Batyr
         [SerializeField] private TMP_Text catText;
         [SerializeField] private TMP_Text gasText;
         [SerializeField] private TMP_Text electricityText;
+        [SerializeField] private TMP_Text safeText;
         [SerializeField] private TMP_Text gradeText;
 
         private void Start()
@@ -31,7 +32,7 @@ namespace Game.Batyr
 
         private void OnEndRound()
         {
-            transform.DOMoveX(0, 1f).SetEase(Ease.OutBounce).SetDelay(3f).OnComplete(() =>
+            transform.DOMoveX(0, 1f).SetEase(Ease.OutBounce).SetDelay(6f).OnComplete(() =>
             {
                 surviveText.color =
                     ServiceLocator.ForSceneOf(this).Get<SurviveTask>().IsCompleted() ? Color.green : Color.red;
@@ -42,6 +43,9 @@ namespace Game.Batyr
                     ? Color.green
                     : Color.red;
                 electricityText.color = ServiceLocator.ForSceneOf(this).Get<TurnOffElectricity>().IsCompleted()
+                    ? Color.green
+                    : Color.red;
+                safeText.color = ServiceLocator.ForSceneOf(this).Get<RetrieveSafeTask>().IsCompleted()
                     ? Color.green
                     : Color.red;
                 _score = ServiceLocator.ForSceneOf(this).Get<ScoreManager.ScoreManager>().Score;
