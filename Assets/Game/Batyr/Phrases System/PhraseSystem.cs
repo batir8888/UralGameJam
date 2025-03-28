@@ -184,5 +184,10 @@ namespace Game.Batyr.Phrases_System
         ThrowDynamite,
         ThrowObject,
         ThrowCat,
+        AboutCat,
+        AboutGas,
+        AboutElectricity,
+        AboutSafe,
+        AboutDeath
     }
 }
