@@ -4,6 +4,7 @@ namespace Game.Batyr.Task_System
 {
     public class TaskInteractionSystem : MonoBehaviour
     {
+        private AudioSource _audioSource;
         private Camera _camera;
 
         [SerializeField] private float raycastDistance = 5f;
@@ -11,6 +12,7 @@ namespace Game.Batyr.Task_System
         private void Awake()
         {
             _camera = Camera.main;
+            _audioSource = GetComponent<AudioSource>();
         }
 
         private void Update()
@@ -20,6 +22,7 @@ namespace Game.Batyr.Task_System
                     raycastDistance)) return;
             if (hit.collider.TryGetComponent(out TurnOffTask task))
             {
+                if (!task.isCompleted) _audioSource.Play();
                 task.TurnOff();
             }
         }

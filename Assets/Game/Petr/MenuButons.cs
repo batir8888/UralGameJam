@@ -1,9 +1,12 @@
+using StarterAssets;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
 
 public class MenuButons : MonoBehaviour
 {
+    private FirstPersonController _firstPersonController;
+
     [SerializeField] private GameObject panel;
     [SerializeField] private Slider sliderSfx;
     [SerializeField] private Slider sliderMusic;
@@ -17,7 +20,12 @@ public class MenuButons : MonoBehaviour
 
     private void Start()
     {
-        if (!isMainMenu) DisableCursor();
+        if (!isMainMenu)
+        {
+            DisableCursor();
+            _firstPersonController = FindObjectOfType<FirstPersonController>();
+        }
+
         LoadSettings();
     }
 
@@ -54,10 +62,12 @@ public class MenuButons : MonoBehaviour
         if (panel.activeSelf)
         {
             ClosePanel();
+            if (_firstPersonController && !_firstPersonController.enabled) _firstPersonController.enabled = true;
         }
         else
         {
             OpenPanel();
+            if (_firstPersonController && _firstPersonController.enabled) _firstPersonController.enabled = false;
         }
     }
 

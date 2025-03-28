@@ -12,7 +12,7 @@ namespace Game.Batyr.Task_System
             _dynamite = GetComponent<Dynamite.Dynamite>();
         }
 
-        public bool IsCompleted() => _isCompleted;
+        public bool IsCompleted() => isCompleted;
 
         public string GetDescription()
         {

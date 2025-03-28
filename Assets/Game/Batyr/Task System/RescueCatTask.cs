@@ -13,7 +13,7 @@ namespace Game.Batyr.Task_System
             ServiceLocator.ForSceneOf(this).Register(this);
         }
 
-        public bool IsCompleted() => Vector3.Distance(transform.position, safeZone.position) < safeDistance;
+        public bool IsCompleted() => Vector3.Distance(transform.position, safeZone.position) > safeDistance;
 
         public string GetDescription()
         {
