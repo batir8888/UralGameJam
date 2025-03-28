@@ -1,5 +1,6 @@
 using DG.Tweening;
 using Game.Batyr.Task_System;
+using StarterAssets;
 using TMPro;
 using UnityEngine;
 using UnityServiceLocator;
@@ -10,6 +11,7 @@ namespace Game.Batyr
     {
         private UITimer _uiTimer;
         private int _score;
+        private FirstPersonController _firstPersonController;
 
         [SerializeField] private TMP_Text scoreText;
         [SerializeField] private TMP_Text surviveText;
@@ -21,6 +23,7 @@ namespace Game.Batyr
 
         private void Start()
         {
+            _firstPersonController = FindObjectOfType<FirstPersonController>();
             _uiTimer = ServiceLocator.ForSceneOf(this).Get<UITimer>();
             _uiTimer.TimerEnded += OnEndRound;
         }
@@ -32,6 +35,9 @@ namespace Game.Batyr
 
         private void OnEndRound()
         {
+            _firstPersonController.enabled = false;
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
             transform.DOMoveX(0, 1f).SetEase(Ease.OutBounce).SetDelay(6f).OnComplete(() =>
             {
                 surviveText.color =

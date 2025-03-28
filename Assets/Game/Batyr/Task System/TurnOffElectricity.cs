@@ -12,7 +12,7 @@ namespace Game.Batyr.Task_System
             ServiceLocator.ForSceneOf(this).Register(this);
         }
 
-        public bool IsCompleted() => _isCompleted;
+        public bool IsCompleted() => isCompleted;
 
         public string GetDescription()
         {
