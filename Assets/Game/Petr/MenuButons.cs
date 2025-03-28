@@ -37,12 +37,14 @@ public class MenuButons : MonoBehaviour
     public void OpenPanel()
     {
         panel.SetActive(true);
+        if (_firstPersonController && _firstPersonController.enabled) _firstPersonController.enabled = false;
         if (!isMainMenu) EnableCursor();
     }
 
     public void ClosePanel()
     {
         panel.SetActive(false);
+        if (_firstPersonController && !_firstPersonController.enabled) _firstPersonController.enabled = true;
         if (!isMainMenu) DisableCursor();
         SaveSettings();
     }
@@ -62,12 +64,10 @@ public class MenuButons : MonoBehaviour
         if (panel.activeSelf)
         {
             ClosePanel();
-            if (_firstPersonController && !_firstPersonController.enabled) _firstPersonController.enabled = true;
         }
         else
         {
             OpenPanel();
-            if (_firstPersonController && _firstPersonController.enabled) _firstPersonController.enabled = false;
         }
     }
 

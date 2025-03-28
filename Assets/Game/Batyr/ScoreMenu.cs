@@ -48,12 +48,12 @@ namespace Game.Batyr
             bool isSafeRetrieve = ServiceLocator.ForSceneOf(this).Get<RetrieveSafeTask>().IsCompleted();
             surviveText.color = isSurvive ? Color.green : Color.red;
             catText.color = isCatSafe ? Color.green : Color.red;
-            catText.enabled = true;
+            catText.gameObject.SetActive(true);
 
             if (isGasDisabled)
             {
                 gasText.color = Color.green;
-                gasText.enabled = true;
+                gasText.gameObject.SetActive(true);
             }
             else
             {
@@ -63,7 +63,7 @@ namespace Game.Batyr
             if (isElectricityDisabled)
             {
                 electricityText.color = Color.green;
-                electricityText.enabled = true;
+                electricityText.gameObject.SetActive(true);
             }
             else
             {
@@ -73,7 +73,7 @@ namespace Game.Batyr
             if (isSafeRetrieve)
             {
                 safeText.color = Color.green;
-                safeText.enabled = true;
+                safeText.gameObject.SetActive(true);
             }
             else
             {
@@ -108,20 +108,26 @@ namespace Game.Batyr
 
                 if (!isGasDisabled)
                 {
+                    gasText.gameObject.SetActive(true);
                     _phraseSystem.PlayPhrase(PhraseKey.AboutGas);
                     return;
                 }
 
                 if (!isElectricityDisabled)
                 {
+                    electricityText.gameObject.SetActive(true);
                     _phraseSystem.PlayPhrase(PhraseKey.AboutElectricity);
                     return;
                 }
 
                 if (!isSafeRetrieve)
                 {
+                    safeText.gameObject.SetActive(true);
                     _phraseSystem.PlayPhrase(PhraseKey.AboutSafe);
+                    return;
                 }
+
+                _phraseSystem.PlayPhrase(PhraseKey.ResultAllTasksComplete);
             });
         }
     }

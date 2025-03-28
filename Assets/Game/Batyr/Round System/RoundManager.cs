@@ -58,6 +58,7 @@ namespace Game.Batyr.Round_System
 
         private IEnumerator SpawnDynamites()
         {
+            yield return new WaitForSeconds(0.2f);
             if (_inventoryManager.DynamitesCount > 0)
             {
                 while (_inventoryManager.DynamitesCount > 0)
