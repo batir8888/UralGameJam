@@ -57,10 +57,10 @@ namespace Game.Batyr.HL2Physics
             _heldObject.Throw(_camera.transform.forward * throwForce);
             if (_heldObject.gameObject.TryGetComponent(out RescueCatTask task))
             {
-                _phraseSystem.PlayActionPhrase(PhraseKey.ThrowCat, 0.5f);
+                _phraseSystem.PlayActionPhrase(PhraseKey.ThrowCat, 0.33f);
             }
 
-            _phraseSystem.PlayActionPhrase(PhraseKey.ThrowObject, 0.5f);
+            _phraseSystem.PlayActionPhrase(PhraseKey.ThrowObject, 0.33f);
 
             _heldObject = null;
         }

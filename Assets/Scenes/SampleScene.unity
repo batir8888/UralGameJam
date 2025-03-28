@@ -489,7 +489,7 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 0.6981132, g: 0.52748716, b: 0.16135636, a: 1}
+  m_Color: {r: 0.745283, g: 0.5113621, b: 0, a: 1}
   m_Intensity: 10
   m_Range: 5
   m_SpotAngle: 30
@@ -1975,6 +1975,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6d69640e3574e378f00aff7a8eae937, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isCompleted: 0
   lights:
   - {fileID: 146624372}
   - {fileID: 1287642714}
@@ -2115,7 +2116,7 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 0.6981132, g: 0.52748716, b: 0.16135636, a: 1}
+  m_Color: {r: 0.745283, g: 0.5113621, b: 0, a: 1}
   m_Intensity: 10
   m_Range: 5
   m_SpotAngle: 30
@@ -3025,7 +3026,7 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 0.6981132, g: 0.52748716, b: 0.16135636, a: 1}
+  m_Color: {r: 0.745283, g: 0.5113621, b: 0, a: 1}
   m_Intensity: 10
   m_Range: 5
   m_SpotAngle: 30
@@ -3094,8 +3095,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 967f45f53c764d138983e07f5308d378, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  safeZone: {fileID: 594054116}
-  safeDistance: 6
+  safeZone: {fileID: 2083916709}
+  safeDistance: 8
 --- !u!114 &813602806
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3504,7 +3505,7 @@ Transform:
   m_GameObject: {fileID: 945449865}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 2.25}
+  m_LocalPosition: {x: 0, y: 0, z: 2.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3827,6 +3828,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 060db640bb5349f2a25d828357112f82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isCompleted: 0
 --- !u!1 &1110532479
 GameObject:
   m_ObjectHideFlags: 0
@@ -4355,7 +4357,7 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 0.6981132, g: 0.52748716, b: 0.16135636, a: 1}
+  m_Color: {r: 0.745283, g: 0.5113621, b: 0, a: 1}
   m_Intensity: 10
   m_Range: 5
   m_SpotAngle: 30
@@ -8578,6 +8580,7 @@ GameObject:
   - component: {fileID: 2862278905763894230}
   - component: {fileID: 2862278905763894231}
   - component: {fileID: 2862278905763894232}
+  - component: {fileID: 2862278905763894233}
   m_Layer: 0
   m_Name: PlayerFollowCamera
   m_TagString: Untagged
@@ -8631,6 +8634,103 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   raycastDistance: 2
+--- !u!82 &2862278905763894233
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2862278905763894229}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 24300002, guid: e07ef633837f11046b281ccb30f06f53,
+    type: 2}
+  m_audioClip: {fileID: 8300000, guid: c52e6087a09ab114884580350f9ea3cb, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 7
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &2933733083095756444
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28864,7 +28964,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
+  m_VertexColorAlwaysGammaSpace: 1
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
@@ -29294,7 +29394,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dangerZone: {fileID: 2083916709}
-  dangerDistance: 7
+  dangerDistance: 8
 --- !u!1001 &7778312749974127251
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29385,8 +29485,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9671d26e1f204308add364989264c833, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  safeZone: {fileID: 594054116}
-  safeDistance: 4
+  safeZone: {fileID: 2083916709}
+  safeDistance: 8
 --- !u!114 &7943606998324470987
 MonoBehaviour:
   m_ObjectHideFlags: 0
