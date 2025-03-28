@@ -27,3 +27,22 @@ MonoBehaviour:
     clips:
     - {fileID: 8300000, guid: af490233b9666214bbdf371c8994a3cd, type: 3}
     - {fileID: 8300000, guid: 50a91b215a3182e46b0fdadcbb03a841, type: 3}
+  - key: 5
+    clips:
+    - {fileID: 8300000, guid: af490233b9666214bbdf371c8994a3cd, type: 3}
+    - {fileID: 8300000, guid: 50a91b215a3182e46b0fdadcbb03a841, type: 3}
+  - key: 2
+    clips:
+    - {fileID: 8300000, guid: 2c69075219f024e45bc294d24bb4c03e, type: 3}
+  - key: 6
+    clips:
+    - {fileID: 8300000, guid: 716b2db9b15d97342aa28b7d77ba2a12, type: 3}
+  - key: 7
+    clips:
+    - {fileID: 8300000, guid: bf1d58dbf9bcee64182e196cefd3bcb1, type: 3}
+  - key: 8
+    clips:
+    - {fileID: 8300000, guid: d2845cfeaf060ca47871fa3f2942cde2, type: 3}
+  - key: 9
+    clips:
+    - {fileID: 8300000, guid: 78fb146545894c148afeb5f950a0e7fb, type: 3}

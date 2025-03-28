@@ -1044,7 +1044,7 @@ PrefabInstance:
     - target: {fileID: 3094195100588958527, guid: 4b41ca7a097f92f48b66da3d1239883b,
         type: 3}
       propertyPath: timeRemaining
-      value: 120
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 4903059457686119810, guid: 4b41ca7a097f92f48b66da3d1239883b,
         type: 3}
@@ -3100,7 +3100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   safeZone: {fileID: 2083916709}
-  safeDistance: 8
+  safeDistance: 14
 --- !u!114 &813602806
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8042,6 +8042,16 @@ PrefabInstance:
       propertyPath: m_fontSizeBase
       value: 120
       objectReference: {fileID: 0}
+    - target: {fileID: 2459711172243347165, guid: cb0ed6ed294e24a4384048ad94a6f640,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3285856198402026145, guid: cb0ed6ed294e24a4384048ad94a6f640,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4334776553259415010, guid: cb0ed6ed294e24a4384048ad94a6f640,
         type: 3}
       propertyPath: m_text
@@ -8086,6 +8096,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -160
+      objectReference: {fileID: 0}
+    - target: {fileID: 6732181189632681516, guid: cb0ed6ed294e24a4384048ad94a6f640,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6807637486611714316, guid: cb0ed6ed294e24a4384048ad94a6f640,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7023054209204483587, guid: cb0ed6ed294e24a4384048ad94a6f640,
         type: 3}
@@ -24514,6 +24534,16 @@ PrefabInstance:
       propertyPath: delayBeforeTracking
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 7643191852154317678, guid: b9c554b6cad4d57459434ba3d3a89c1a,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 110
+      objectReference: {fileID: 0}
+    - target: {fileID: 7643191852154317678, guid: b9c554b6cad4d57459434ba3d3a89c1a,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7645320843638760460, guid: b9c554b6cad4d57459434ba3d3a89c1a,
         type: 3}
       propertyPath: m_Mass
@@ -29901,7 +29931,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dangerZone: {fileID: 2083916709}
-  dangerDistance: 8
+  dangerDistance: 12
 --- !u!1001 &7778312749974127251
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29993,7 +30023,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   safeZone: {fileID: 2083916709}
-  safeDistance: 8
+  safeDistance: 14
 --- !u!114 &7943606998324470987
 MonoBehaviour:
   m_ObjectHideFlags: 0

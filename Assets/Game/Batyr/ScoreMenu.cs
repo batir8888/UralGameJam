@@ -1,4 +1,5 @@
 using DG.Tweening;
+using Game.Batyr.Phrases_System;
 using Game.Batyr.Task_System;
 using StarterAssets;
 using TMPro;
@@ -12,6 +13,7 @@ namespace Game.Batyr
         private UITimer _uiTimer;
         private int _score;
         private FirstPersonController _firstPersonController;
+        private PhraseSystem _phraseSystem;
 
         [SerializeField] private TMP_Text scoreText;
         [SerializeField] private TMP_Text surviveText;
@@ -24,6 +26,7 @@ namespace Game.Batyr
         private void Start()
         {
             _firstPersonController = FindObjectOfType<FirstPersonController>();
+            _phraseSystem = ServiceLocator.ForSceneOf(this).Get<PhraseSystem>();
             _uiTimer = ServiceLocator.ForSceneOf(this).Get<UITimer>();
             _uiTimer.TimerEnded += OnEndRound;
         }
@@ -38,22 +41,47 @@ namespace Game.Batyr
             _firstPersonController.enabled = false;
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
+            bool isSurvive = ServiceLocator.ForSceneOf(this).Get<SurviveTask>().IsCompleted();
+            bool isCatSafe = ServiceLocator.ForSceneOf(this).Get<RescueCatTask>().IsCompleted();
+            bool isGasDisabled = ServiceLocator.ForSceneOf(this).Get<TurnOffGasTask>().IsCompleted();
+            bool isElectricityDisabled = ServiceLocator.ForSceneOf(this).Get<TurnOffElectricity>().IsCompleted();
+            bool isSafeRetrieve = ServiceLocator.ForSceneOf(this).Get<RetrieveSafeTask>().IsCompleted();
+            surviveText.color = isSurvive ? Color.green : Color.red;
+            catText.color = isCatSafe ? Color.green : Color.red;
+            catText.enabled = true;
+
+            if (isGasDisabled)
+            {
+                gasText.color = Color.green;
+                gasText.enabled = true;
+            }
+            else
+            {
+                gasText.color = Color.red;
+            }
+
+            if (isElectricityDisabled)
+            {
+                electricityText.color = Color.green;
+                electricityText.enabled = true;
+            }
+            else
+            {
+                electricityText.color = Color.red;
+            }
+
+            if (isSafeRetrieve)
+            {
+                safeText.color = Color.green;
+                safeText.enabled = true;
+            }
+            else
+            {
+                safeText.color = Color.red;
+            }
+
             transform.DOMoveX(0, 1f).SetEase(Ease.OutBounce).SetDelay(6f).OnComplete(() =>
             {
-                surviveText.color =
-                    ServiceLocator.ForSceneOf(this).Get<SurviveTask>().IsCompleted() ? Color.green : Color.red;
-                catText.color = ServiceLocator.ForSceneOf(this).Get<RescueCatTask>().IsCompleted()
-                    ? Color.green
-                    : Color.red;
-                gasText.color = ServiceLocator.ForSceneOf(this).Get<TurnOffGasTask>().IsCompleted()
-                    ? Color.green
-                    : Color.red;
-                electricityText.color = ServiceLocator.ForSceneOf(this).Get<TurnOffElectricity>().IsCompleted()
-                    ? Color.green
-                    : Color.red;
-                safeText.color = ServiceLocator.ForSceneOf(this).Get<RetrieveSafeTask>().IsCompleted()
-                    ? Color.green
-                    : Color.red;
                 _score = ServiceLocator.ForSceneOf(this).Get<ScoreManager.ScoreManager>().Score;
                 scoreText.text = $"{_score}";
                 if (_score > 5000000)
@@ -66,6 +94,34 @@ namespace Game.Batyr
                     gradeText.text = "Г";
                 else
                     gradeText.text = "Д";
+                if (!isSurvive)
+                {
+                    _phraseSystem.PlayPhrase(PhraseKey.ResultGenericFail);
+                    return;
+                }
+
+                if (!isCatSafe)
+                {
+                    _phraseSystem.PlayPhrase(PhraseKey.AboutCat);
+                    return;
+                }
+
+                if (!isGasDisabled)
+                {
+                    _phraseSystem.PlayPhrase(PhraseKey.AboutGas);
+                    return;
+                }
+
+                if (!isElectricityDisabled)
+                {
+                    _phraseSystem.PlayPhrase(PhraseKey.AboutElectricity);
+                    return;
+                }
+
+                if (!isSafeRetrieve)
+                {
+                    _phraseSystem.PlayPhrase(PhraseKey.AboutSafe);
+                }
             });
         }
     }
